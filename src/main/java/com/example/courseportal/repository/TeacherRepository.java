@@ -1,2 +1,9 @@
-package com.example.courseportal.repository;public interface TeacherRepository {
+package com.example.courseportal.repository;
+
+import com.example.courseportal.entity.Teacher;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 }

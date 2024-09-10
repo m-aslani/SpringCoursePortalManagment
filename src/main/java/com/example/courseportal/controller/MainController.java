@@ -1,2 +1,13 @@
-package com.example.courseportal.controller;public class MainController {
+package com.example.courseportal.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class MainController {
+
+    @GetMapping(value = "/")
+    public String index() {
+        return "index";
+    }
 }

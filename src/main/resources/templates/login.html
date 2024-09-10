@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 th:text="${role} == 'student' ? 'Student' : 'Teacher'">Login / Sign Up</h2>
+<form th:action="@{/login/{role}(role=${role})}" th:object="${user}" method="post">
+    <!-- نام -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" required>
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+    <br>
+
+    <!-- رمز عبور -->
+    <label for="password">Password:</label>
+    <input type="password" id="password" th:field="*{password}" required>
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+    <br>
+
+    <!-- انتخاب درس -->
+    <label for="courses">Select Courses:</label>
+    <select id="courses" multiple th:field="*{courses}">
+        <option th:each="course : ${courseList}" th:value="${course.id}" th:text="${course.name}"></option>
+    </select>
+    <span th:if="${#fields.hasErrors('courses')}" th:errors="*{courses}">Course Selection Error</span>
+    <br>
+
+    <!-- دکمه ارسال -->
+    <button type="submit">Submit</button>
+</form>
+
+<!-- پیام های خطا -->
+<div th:if="${errorMessage}">
+    <p th:text="${errorMessage}"></p>
+</div>
+</body>
+</html>

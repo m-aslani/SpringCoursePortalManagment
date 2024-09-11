@@ -1,6 +1,7 @@
 package com.example.courseportal.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -9,8 +10,10 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     @ManyToOne
     @JoinColumn(name = "teacher-id")
     private Teacher teacher;
@@ -41,6 +44,14 @@ public class Course {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public Long getId() {

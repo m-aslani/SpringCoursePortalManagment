@@ -5,12 +5,11 @@ import com.example.courseportal.repository.TeacherRepository;
 import com.example.courseportal.service.TeacherService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
+
 
 import java.util.List;
 
 @Service
-@Validated
 @AllArgsConstructor
 public class TeacherImpl implements TeacherService {
 

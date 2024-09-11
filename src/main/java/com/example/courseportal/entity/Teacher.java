@@ -1,6 +1,8 @@
 package com.example.courseportal.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -9,7 +11,10 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty
     private String name;
+    @NotEmpty
+    @Min(4)
     private String password;
 
     @OneToMany(mappedBy = "teacher")

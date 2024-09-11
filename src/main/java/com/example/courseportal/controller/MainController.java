@@ -1,10 +1,12 @@
 package com.example.courseportal.controller;
 
+import com.example.courseportal.entity.Course;
 import com.example.courseportal.entity.Student;
 import com.example.courseportal.entity.Teacher;
 import com.example.courseportal.service.CourseService;
 import com.example.courseportal.service.StudentService;
 import com.example.courseportal.service.TeacherService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,8 +43,8 @@ public class MainController {
     }
 
     @PostMapping(value = "/login/{role}")
-    public String save(@PathVariable String role ,Student studentForm,
-                        Teacher teacherForm, BindingResult bindingResult , Model model) {
+    public String save(@PathVariable String role ,@Valid Student studentForm,
+                        @Valid Teacher teacherForm, BindingResult bindingResult , Model model) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("role", role);
             model.addAttribute("courseList", courseService.getAllCourses());
@@ -53,6 +55,25 @@ public class MainController {
         }else if(role.equals("teacher")) {
             teacherService.saveTeacher(teacherForm);
         }
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/submit-course")
+    public String submit(Model model) {
+        model.addAttribute("courseForm", new Course());
+        model.addAttribute("teacherList", teacherService.getAllTeachers());
+        return "submit_course";
+    }
+
+    @PostMapping(value = "/submit-course")
+    public String submit(@Valid Course courseForm, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("teacherList", teacherService.getAllTeachers());
+            return "submit_course";
+        }
+        System.out.println("555555555");
+        courseService.saveCourse(courseForm);
+        System.out.println(courseService.getAllCourses());
         return "redirect:/";
     }
 }
